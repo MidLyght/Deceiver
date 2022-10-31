@@ -10,7 +10,6 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseServices fs=new FirebaseServices();
-    TextView signUpTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +19,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayoutMain, new LogInFragment());
         ft.commit();
-
-        signUpTxt=findViewById(R.id.txtAccountMain);
     }
 
     public void goToSignUp(View view){

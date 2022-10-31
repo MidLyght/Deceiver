@@ -1,34 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:onClick="logIn"
     tools:context=".LogInFragment">
 
-    <EditText
-        android:id="@+id/etMailLogIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:hint="Enter your email..."
-        android:inputType="textEmailAddress" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/etPassLogIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:hint="Enter your password..."
-        android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/etMailLogIn"
+            android:layout_width="210dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="61dp"
+            android:ems="10"
+            android:hint="Enter your email..."
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toTopOf="@+id/etPassLogIn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-    <Button
-        android:id="@+id/btnLogIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:onClick="logIn"
-        android:text="Log in" />
+        <TextView
+            android:id="@+id/txtSignUpLogIn"
+            android:layout_width="227dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="51dp"
+            android:clickable="true"
+            android:text="Don't have an account? Sign up here!"
+            android:textAlignment="center"
+            android:textColor="#815454"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogIn" />
+
+        <Button
+            android:id="@+id/btnLogIn"
+            android:layout_width="88dp"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="64dp"
+            android:backgroundTint="#815454"
+            android:onClick="logIn"
+            android:text="Log in"
+            app:layout_constraintBottom_toTopOf="@+id/txtSignUpLogIn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPassLogIn" />
+
+        <EditText
+            android:id="@+id/etPassLogIn"
+            android:layout_width="210dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="62dp"
+            android:ems="10"
+            android:hint="Enter your password..."
+            android:inputType="textPassword"
+            app:layout_constraintBottom_toTopOf="@+id/btnLogIn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etMailLogIn" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginBottom="77dp"
+            android:backgroundTint="#BD2D2D"
+            android:foregroundTint="#ED1919"
+            android:src="@drawable/img_1"
+            android:tint="#2F8A3B"
+            app:layout_constraintBottom_toTopOf="@+id/etMailLogIn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -14,7 +14,7 @@
             android:id="@+id/etPassConfirmSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="34dp"
+            android:layout_marginBottom="32dp"
             android:ems="10"
             android:hint="Confirm password..."
             android:inputType="textPassword"
@@ -22,22 +22,10 @@
             app:layout_constraintStart_toStartOf="@+id/etPassSignUp" />
 
         <EditText
-            android:id="@+id/etEmailSignUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="288dp"
-            android:ems="10"
-            android:hint="Enter email..."
-            android:inputType="textEmailAddress"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
             android:id="@+id/etPassSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="47dp"
+            android:layout_marginTop="44dp"
             android:ems="10"
             android:hint="Enter password..."
             android:inputType="textEmailAddress"
@@ -48,10 +36,52 @@
             android:id="@+id/btnSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="22dp"
+            android:layout_marginBottom="92dp"
+            android:backgroundTint="#815454"
             android:text="Register"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/etEmailSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="356dp"
+            android:ems="10"
+            android:hint="Enter email..."
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:src="@drawable/img_1"
+            android:tint="#2F8A3B"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/signUpToLogInTxt"
+            android:layout_width="235dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="38dp"
+            android:clickable="true"
+            android:text="Already have an account? Log in here!"
+            android:textAlignment="center"
+            android:textColor="#815454"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
