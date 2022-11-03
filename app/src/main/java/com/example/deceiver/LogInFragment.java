@@ -37,15 +37,27 @@ public class LogInFragment extends Fragment {
     private Button logInBtn;
     private EditText mailEt,passEt;
     private FirebaseAuth mAuth;
-    private TextView logInToSignUpTxt;
+    private TextView logInToSignUpTxt,logInToRPTxt;
 
     private void attachComponents(){
         logInBtn=objectSignInFragment.findViewById(R.id.btnLogIn);
         mailEt=objectSignInFragment.findViewById(R.id.etMailLogIn);
         passEt=objectSignInFragment.findViewById(R.id.etPassLogIn);
         logInToSignUpTxt=objectSignInFragment.findViewById(R.id.txtSignUpLogIn);
+        logInToRPTxt=objectSignInFragment.findViewById(R.id.logInToRPTxt);
 
         mAuth=FirebaseAuth.getInstance();
+
+        logInToRPTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ForgotPasswordFragment forgotPasswordFragment=new ForgotPasswordFragment();
+                FragmentManager manager=getFragmentManager();
+                manager.beginTransaction()
+                        .replace(R.id.frameLayoutMain,forgotPasswordFragment,forgotPasswordFragment.getTag())
+                        .commit();
+            }
+        });
 
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,11 +2,22 @@ package com.example.deceiver;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,7 +26,63 @@ import android.view.ViewGroup;
  */
 public class ForgotPasswordFragment extends Fragment {
 
-    View
+    private View objectForgotPasswordFragment;
+    private Button resetPassBtn;
+    private EditText emailEt;
+    private TextView RPtoLoginTxt;
+    private FirebaseAuth mAuth;
+
+    private void resetPassword(){
+        try{
+            if(!emailEt.getText().toString().isEmpty())
+                mAuth.sendPasswordResetEmail(emailEt.getText().toString())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(getContext(), "Password reset email has been sent.", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getContext(), "Password reset failed.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            else{
+                Toast.makeText(getContext(), "Missing fields identified.", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        catch(Exception e){
+            Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void attachComponents(){
+        resetPassBtn=objectForgotPasswordFragment.findViewById(R.id.resetPasswordBtn);
+        emailEt=objectForgotPasswordFragment.findViewById(R.id.emailEtRP);
+        RPtoLoginTxt=objectForgotPasswordFragment.findViewById(R.id.RPtoLoginTxt);
+        mAuth=FirebaseAuth.getInstance();
+
+        resetPassBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetPassword();
+            }
+        });
+
+        RPtoLoginTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogInFragment logInFragment=new LogInFragment();
+                FragmentManager manager=getFragmentManager();
+                manager.beginTransaction()
+                        .replace(R.id.frameLayoutMain,logInFragment,logInFragment.getTag())
+                        .commit();
+            }
+        });
+    }
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,7 +126,9 @@ public class ForgotPasswordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forgot_password, container, false);
+        objectForgotPasswordFragment=inflater.inflate(R.layout.fragment_forgot_password,container,false);
+        attachComponents();
+
+        return objectForgotPasswordFragment;
     }
 }
