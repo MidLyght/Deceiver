@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileCreationFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/profileEditUsernameEt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="47dp"
+            android:layout_marginEnd="101dp"
+            android:ems="10"
+            android:hint="Username..."
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/profileEditBioEt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileEditPicImgBtn" />
+
+        <EditText
+            android:id="@+id/profileEditBioEt"
+            android:layout_width="210dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="31dp"
+            android:layout_marginEnd="101dp"
+            android:ems="10"
+            android:hint="Bio..."
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/profileEditLocationEt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileEditUsernameEt" />
+
+        <EditText
+            android:id="@+id/profileEditLocationEt"
+            android:layout_width="210dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="101dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="101dp"
+            android:ems="10"
+            android:hint="Location..."
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/profileEditFavRole1ImgBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileEditBioEt" />
+
+        <ImageButton
+            android:id="@+id/profileEditFavRole1ImgBtn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="57dp"
+            android:layout_marginBottom="17dp"
+            app:layout_constraintBottom_toTopOf="@+id/profileEditFavRole1Tv"
+            app:layout_constraintEnd_toStartOf="@+id/profileEditFavRole2ImgBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileEditLocationEt"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageButton
+            android:id="@+id/profileEditFavRole2ImgBtn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="57dp"
+            android:layout_marginBottom="17dp"
+            app:layout_constraintBottom_toTopOf="@+id/profileEditFavRole2Tv"
+            app:layout_constraintEnd_toStartOf="@+id/profileEditFavRole3ImgBtn"
+            app:layout_constraintStart_toEndOf="@+id/profileEditFavRole1ImgBtn"
+            app:layout_constraintTop_toBottomOf="@+id/profileEditLocationEt"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageButton
+            android:id="@+id/profileEditFavRole3ImgBtn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="58dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="17dp"
+            app:layout_constraintBottom_toTopOf="@+id/profileEditFavRole3Tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profileEditFavRole2ImgBtn"
+            app:layout_constraintTop_toBottomOf="@+id/profileEditLocationEt"
+            tools:src="@tools:sample/avatars" />
+
+        <Button
+            android:id="@+id/profileEditApply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="72dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#815454"
+            android:text="apply"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profileEditBack"
+            app:layout_constraintTop_toBottomOf="@+id/profileEditFavRole3Tv" />
+
+        <Button
+            android:id="@+id/profileEditBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginEnd="91dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#815454"
+            android:text="back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/profileEditApply"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileEditFavRole1Tv" />
+
+        <ImageButton
+            android:id="@+id/profileEditPicImgBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="129dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="130dp"
+            app:layout_constraintBottom_toTopOf="@+id/profileEditUsernameEt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/profileEditFavRole1Tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginBottom="21dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/profileEditBack"
+            app:layout_constraintEnd_toStartOf="@+id/profileEditFavRole2Tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileEditFavRole1ImgBtn" />
+
+        <TextView
+            android:id="@+id/profileEditFavRole2Tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginBottom="85dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/profileEditFavRole3Tv"
+            app:layout_constraintStart_toEndOf="@+id/profileEditFavRole1Tv"
+            app:layout_constraintTop_toBottomOf="@+id/profileEditFavRole2ImgBtn" />
+
+        <TextView
+            android:id="@+id/profileEditFavRole3Tv"
+            android:layout_width="58dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="65dp"
+            android:layout_marginEnd="54dp"
+            android:layout_marginBottom="21dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/profileEditApply"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profileEditFavRole2Tv"
+            app:layout_constraintTop_toBottomOf="@+id/profileEditFavRole3ImgBtn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
