@@ -1,4 +1,4 @@
-package com.example.deceiver;
+package com.example.deceiver.Fragments;
 
 import static android.content.ContentValues.TAG;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,17 +18,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.example.deceiver.DataClasses.User;
+import com.example.deceiver.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.HashMap;
+import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SignUpFragment#newInstance} factory method to
@@ -37,8 +36,9 @@ public class SignUpFragment extends Fragment {
 
     View objectSignUpFragment;
     private Button signUpBtn;
-    private EditText mailEt,passEt,confirmPassEt;
+    private EditText mailEt,usernameEt,passEt,confirmPassEt;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore mFire;
     private TextView signUpToLogInTxt;
 
 
@@ -46,10 +46,12 @@ public class SignUpFragment extends Fragment {
         try{
                 signUpBtn=objectSignUpFragment.findViewById(R.id.btnSignUp);
                 mailEt=objectSignUpFragment.findViewById(R.id.etEmailSignUp);
+                usernameEt=objectSignUpFragment.findViewById(R.id.etUsernameSignUp);
                 passEt=objectSignUpFragment.findViewById(R.id.etPassSignUp);
                 confirmPassEt=objectSignUpFragment.findViewById(R.id.etPassConfirmSignUp);
                 signUpToLogInTxt=objectSignUpFragment.findViewById(R.id.signUpToLogInTxt);
 
+                mFire=FirebaseFirestore.getInstance();
                 mAuth=FirebaseAuth.getInstance();
 
                 signUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -104,24 +106,6 @@ public class SignUpFragment extends Fragment {
         return fragment;
     }
 
-    public static boolean isEmailValid(String email) {
-        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-    public static boolean isPasswordValid(final String password) {
-
-        Pattern pattern;
-        Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
-        return matcher.matches();
-
-    }
-
     public void createUser(){
         try{
             if(!mailEt.getText().toString().isEmpty()&&!passEt.getText().toString().isEmpty()&&!confirmPassEt.getText().toString().isEmpty()){
@@ -130,11 +114,14 @@ public class SignUpFragment extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
+                                    addUserToFirestore();
                                     Toast.makeText(getContext(), "Account created.", Toast.LENGTH_SHORT).show();
                                     if(mAuth.getCurrentUser()!=null){
                                         mAuth.signOut();
                                     }
                                 }
+
+
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -155,6 +142,26 @@ public class SignUpFragment extends Fragment {
             Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void addUserToFirestore() {
+        User user = new User(usernameEt.getText().toString(),mailEt.getText().toString(),passEt.getText().toString());
+
+        mFire.collection("users").document("a")
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,10 +173,6 @@ public class SignUpFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        signUpBtn=getView().findViewById(R.id.btnSignUp);
-        mailEt=getView().findViewById(R.id.etEmailSignUp);
-        passEt=getView().findViewById(R.id.etPassSignUp);
-        confirmPassEt=getView().findViewById(R.id.etPassConfirmSignUp);
     }
 
     @Override
