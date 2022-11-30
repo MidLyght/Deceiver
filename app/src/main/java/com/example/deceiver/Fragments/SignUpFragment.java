@@ -19,12 +19,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.deceiver.DataClasses.User;
+import com.example.deceiver.FirebaseServices;
+import com.example.deceiver.MainActivity;
 import com.example.deceiver.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -37,9 +44,9 @@ public class SignUpFragment extends Fragment {
     View objectSignUpFragment;
     private Button signUpBtn;
     private EditText mailEt,usernameEt,passEt,confirmPassEt;
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore mFire;
+    private FirebaseServices fbs;
     private TextView signUpToLogInTxt;
+    private boolean worked;
 
 
     private void attachComponents(){
@@ -50,9 +57,7 @@ public class SignUpFragment extends Fragment {
                 passEt=objectSignUpFragment.findViewById(R.id.etPassSignUp);
                 confirmPassEt=objectSignUpFragment.findViewById(R.id.etPassConfirmSignUp);
                 signUpToLogInTxt=objectSignUpFragment.findViewById(R.id.signUpToLogInTxt);
-
-                mFire=FirebaseFirestore.getInstance();
-                mAuth=FirebaseAuth.getInstance();
+                fbs=FirebaseServices.getInstance();
 
                 signUpBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -106,27 +111,34 @@ public class SignUpFragment extends Fragment {
         return fragment;
     }
 
-    public void createUser(){
+    private void createUser(){
         try{
             if(!mailEt.getText().toString().isEmpty()&&!passEt.getText().toString().isEmpty()&&!confirmPassEt.getText().toString().isEmpty()){
                 if(passEt.getText().toString().equals(confirmPassEt.getText().toString())){
-                    mAuth.createUserWithEmailAndPassword(mailEt.getText().toString(),passEt.getText().toString())
+                    fbs.getAuth().createUserWithEmailAndPassword(mailEt.getText().toString(),passEt.getText().toString())
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    addUserToFirestore();
+                                    worked=true;
                                     Toast.makeText(getContext(), "Account created.", Toast.LENGTH_SHORT).show();
-                                    if(mAuth.getCurrentUser()!=null){
-                                        mAuth.signOut();
+                                    if(fbs.getAuth().getCurrentUser()!=null){
+                                        fbs.getAuth().signOut();
                                     }
                                 }
-
-
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Toast.makeText(getContext(),e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(worked==true){
+                                        addUserToFirestore();
+                                        worked=false;
+                                    }
                                 }
                             });
                 }
@@ -143,11 +155,23 @@ public class SignUpFragment extends Fragment {
         }
     }
 
-    private void addUserToFirestore() {
-        User user = new User(usernameEt.getText().toString(),mailEt.getText().toString(),passEt.getText().toString());
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
-        mFire.collection("users").document("a")
-                .set(user)
+    public void addUserToFirestore() {
+        DocumentReference newUserRef=fbs.getFire().collection("users").document(usernameEt.getText().toString());
+
+        Map<String,Object> user=new HashMap<>();
+        user.put("Email",mailEt.getText().toString());
+        user.put("Password",passEt.getText().toString());
+
+        newUserRef.set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -160,15 +184,6 @@ public class SignUpFragment extends Fragment {
                         Log.w(TAG, "Error writing document", e);
                     }
                 });
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override

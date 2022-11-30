@@ -18,7 +18,7 @@ public class FirebaseServices {
         this.storage=FirebaseStorage.getInstance();
     }
 
-    public FirebaseServices getInstance(){
+    public static FirebaseServices getInstance(){
         if(instance==null)
             instance=new FirebaseServices();
         return instance;

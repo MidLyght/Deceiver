@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.deceiver.DataClasses.User;
 import com.example.deceiver.Fragments.LogInFragment;
 import com.example.deceiver.Fragments.SignUpFragment;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,7 +24,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseFirestore mFire=FirebaseFirestore.getInstance();
+    FirebaseServices fbs=FirebaseServices.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
