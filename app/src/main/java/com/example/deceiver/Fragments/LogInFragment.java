@@ -1,5 +1,6 @@
 package com.example.deceiver.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.deceiver.Activities.MainPageActivity;
 import com.example.deceiver.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -126,6 +128,8 @@ public class LogInFragment extends Fragment {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
                                     Toast.makeText(getContext(), "User signed in successfully.", Toast.LENGTH_SHORT).show();
+                                    Intent mainPageActivityIntent = new Intent(getContext(), MainPageActivity.class);
+                                    startActivity(mainPageActivityIntent);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {

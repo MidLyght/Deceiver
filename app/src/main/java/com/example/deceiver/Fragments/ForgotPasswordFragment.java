@@ -40,6 +40,11 @@ public class ForgotPasswordFragment extends Fragment {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toast.makeText(getContext(), "Password reset email has been sent.", Toast.LENGTH_SHORT).show();
+                                LogInFragment logInFragment=new LogInFragment();
+                                FragmentManager manager=getFragmentManager();
+                                manager.beginTransaction()
+                                        .replace(R.id.frameLayoutMain,logInFragment,logInFragment.getTag())
+                                        .commit();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
