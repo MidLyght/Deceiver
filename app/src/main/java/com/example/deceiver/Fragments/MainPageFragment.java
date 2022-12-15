@@ -3,6 +3,7 @@ package com.example.deceiver.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.deceiver.R;
  */
 public class MainPageFragment extends Fragment {
 
+    View objectMainPageFragment;
     private Button btnPlay,btnIntro;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -51,6 +53,22 @@ public class MainPageFragment extends Fragment {
         return fragment;
     }
 
+    public void attachComponents(){
+        btnPlay=objectMainPageFragment.findViewById(R.id.btnPlayMainPage);
+        btnIntro=objectMainPageFragment.findViewById(R.id.btnIntroMainPage);
+
+        btnIntro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntroductionFragment introductionFragment=new IntroductionFragment();
+                FragmentManager manager=getFragmentManager();
+                manager.beginTransaction()
+                        .replace(R.id.frameLayoutMainPage,introductionFragment,introductionFragment.getTag())
+                        .commit();
+            }
+        });
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +82,9 @@ public class MainPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_page, container, false);
+        objectMainPageFragment=inflater.inflate(R.layout.fragment_main_page,container,false);
+        attachComponents();
+
+        return objectMainPageFragment;
     }
 }
