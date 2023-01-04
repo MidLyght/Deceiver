@@ -70,6 +70,28 @@ public class IntroductionFragment extends Fragment {
                         .commit();
             }
         });
+
+        introToRolesImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RolesFragment rolesFragment=new RolesFragment();
+                FragmentManager manager=getFragmentManager();
+                manager.beginTransaction()
+                        .replace(R.id.frameLayoutMainPage,rolesFragment,rolesFragment.getTag())
+                        .commit();
+            }
+        });
+
+        introToTutorialImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HowToPlayFragment howToPlayFragment=new HowToPlayFragment();
+                FragmentManager manager=getFragmentManager();
+                manager.beginTransaction()
+                        .replace(R.id.frameLayoutMainPage,howToPlayFragment,howToPlayFragment.getTag())
+                        .commit();
+            }
+        });
     }
 
     @Override
