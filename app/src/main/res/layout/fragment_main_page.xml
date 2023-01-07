@@ -12,11 +12,11 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/behindLogo"
+            android:id="@+id/behindBtnsMainPage"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginBottom="430dp"
-            android:rotation="45"
+            android:layout_marginTop="225dp"
+            android:rotation="0"
             android:src="@android:drawable/screen_background_dark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
             app:tint="#4E2D67" />
 
         <ImageView
-            android:id="@+id/Logo"
+            android:id="@+id/logoMainPage"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginBottom="430dp"
@@ -34,6 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/eye_text"
             app:tint="#BCBBBB" />
 
         <Button
@@ -61,6 +62,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnSettingsMainPage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="610dp"
+            android:layout_marginEnd="320dp"
+            android:src="@drawable/settingsicon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#BCBBBB" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

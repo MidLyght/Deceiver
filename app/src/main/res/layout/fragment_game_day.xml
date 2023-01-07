@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/daytimebackground"
+    tools:context=".Fragments.GameDayFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txtGameDayDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="620dp"
+            android:text="Day"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtGameDayDayNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="550dp"
+            android:text="Day ()"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameDayCharBackground"
+            android:layout_width="match_parent"
+            android:layout_height="534dp"
+            android:layout_marginTop="45dp"
+            android:src="@android:drawable/screen_background_dark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#ACD8FD" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar6"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginTop="170dp"
+            android:src="@drawable/avataricon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#2D95D1" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar7"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="420dp"
+            android:layout_marginEnd="230dp"
+            android:src="@drawable/avataricon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#2D95D1" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="230dp"
+            android:layout_marginBottom="80dp"
+            android:src="@drawable/avataricon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#2D95D1" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="230dp"
+            android:layout_marginBottom="330dp"
+            android:src="@drawable/avataricon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#2D95D1" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginBottom="330dp"
+            android:src="@drawable/avataricon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#2D95D1" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginBottom="80dp"
+            android:src="@drawable/avataricon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#2D95D1" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar8"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginTop="420dp"
+            android:src="@drawable/avataricon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#2D95D1" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar5"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginEnd="230dp"
+            android:src="@drawable/avataricon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#2D95D1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

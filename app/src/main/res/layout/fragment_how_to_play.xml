@@ -118,6 +118,22 @@ It contains 8 characters; one deceiver, one traitor, two farmers, two guards, on
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="The game begins at dawn of the first day, allowing characters who can use their powers during the dawn to do so.
+With the first dawn of the game going down, the night phase comes in, once again allowing characters with abilities to use them.
+After every dawn/night phase, the player (or the detective) is presented with the full log of events that occurred on that specific dawn/night of the game.
+Once the night phase ends, the day phase begins, allowing the player to choose to either do nothing, or lynch one of the chararcters still alive in the game.
+As the end of the first day comes up, the next dawn phase starts, followed by the next night phase, and the game keeps going in a similar cycle of day to dawn to night until one of the two teams present in the game win.
+"
+                android:textColor="#919191"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

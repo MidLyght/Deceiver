@@ -78,6 +78,7 @@ public class IntroductionFragment extends Fragment {
                 FragmentManager manager=getFragmentManager();
                 manager.beginTransaction()
                         .replace(R.id.frameLayoutMainPage,rolesFragment,rolesFragment.getTag())
+                        .addToBackStack(null)
                         .commit();
             }
         });
@@ -89,6 +90,7 @@ public class IntroductionFragment extends Fragment {
                 FragmentManager manager=getFragmentManager();
                 manager.beginTransaction()
                         .replace(R.id.frameLayoutMainPage,howToPlayFragment,howToPlayFragment.getTag())
+                        .addToBackStack(null)
                         .commit();
             }
         });
