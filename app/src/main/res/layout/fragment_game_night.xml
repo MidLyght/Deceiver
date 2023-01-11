@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/nighttimebackground"
-    tools:context=".Fragments.GameNightFragment">
+    tools:context=".Fragments.StandardGameNightFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -151,6 +151,212 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="#223B5E" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar1Dead"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="230dp"
+            android:layout_marginBottom="330dp"
+            android:src="@drawable/scratchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar2Dead"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginBottom="330dp"
+            android:src="@drawable/scratchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar3Dead"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="230dp"
+            android:layout_marginBottom="80dp"
+            android:src="@drawable/scratchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar4Dead"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginBottom="80dp"
+            android:src="@drawable/scratchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar5Dead"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginEnd="230dp"
+            android:src="@drawable/scratchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar6Dead"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginTop="170dp"
+            android:src="@drawable/scratchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar7Dead"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="420dp"
+            android:layout_marginEnd="230dp"
+            android:src="@drawable/scratchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar8Dead"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginTop="420dp"
+            android:src="@drawable/scratchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar1Role"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="320dp"
+            android:layout_marginBottom="250dp"
+            android:src="@drawable/settingsicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar2Role"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="140dp"
+            android:layout_marginBottom="250dp"
+            android:src="@drawable/settingsicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar3Role"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="320dp"
+            android:src="@drawable/settingsicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar4Role"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="140dp"
+            android:src="@drawable/settingsicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar5Role"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="250dp"
+            android:layout_marginEnd="320dp"
+            android:src="@drawable/settingsicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar6Role"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="140dp"
+            android:layout_marginTop="250dp"
+            android:src="@drawable/settingsicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar7Role"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="500dp"
+            android:layout_marginEnd="320dp"
+            android:src="@drawable/settingsicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameNightChar8Role"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="140dp"
+            android:layout_marginTop="500dp"
+            android:src="@drawable/settingsicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
