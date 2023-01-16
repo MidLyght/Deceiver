@@ -3,6 +3,7 @@ package com.example.deceiver.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 
 import com.example.deceiver.Activities.StandardGameActivity;
 import com.example.deceiver.DataClasses.StandardCharacter;
+import com.example.deceiver.Enums.Phase;
 import com.example.deceiver.Enums.StandardRole;
 import com.example.deceiver.R;
 
@@ -25,7 +27,7 @@ public class StandardGameNightFragment extends Fragment {
 
     private View objectStandardGameNightFragment;
     public StandardGameActivity sga;
-    private ImageView c1,c2,c3,c4,c5,c6,c7,c8,c1dead,c2dead,c3dead,c4dead,c5dead,c6dead,c7dead,c8dead,c1role,c2role,c3role,c4role,c5role,c6role,c7role,c8role;
+    private ImageView c1,c2,c3,c4,c5,c6,c7,c8,c1dead,c2dead,c3dead,c4dead,c5dead,c6dead,c7dead,c8dead,c1role,c2role,c3role,c4role,c5role,c6role,c7role,c8role,nextPhase;
     ArrayList<StandardCharacter> order;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -72,7 +74,7 @@ public class StandardGameNightFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        objectStandardGameNightFragment=inflater.inflate(R.layout.fragment_log_in_page,container,false);
+        objectStandardGameNightFragment=inflater.inflate(R.layout.fragment_game_night,container,false);
         attachComponents();
 
         return objectStandardGameNightFragment;
@@ -119,6 +121,20 @@ public class StandardGameNightFragment extends Fragment {
         c6role=objectStandardGameNightFragment.findViewById(R.id.imgGameNightChar6Role);
         c7role=objectStandardGameNightFragment.findViewById(R.id.imgGameNightChar7Role);
         c8role=objectStandardGameNightFragment.findViewById(R.id.imgGameNightChar8Role);
+
+        nextPhase=objectStandardGameNightFragment.findViewById(R.id.imgGameNightNextPhase);
+
+        nextPhase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sga.nightCount++;
+                StandardGameNightLogFragment standardGameNightLogFragment=new StandardGameNightLogFragment();
+                FragmentManager manager=getFragmentManager();
+                manager.beginTransaction()
+                        .replace(R.id.frameLayoutGame,standardGameNightLogFragment,standardGameNightLogFragment.getTag())
+                        .commit();
+            }
+        });
 
         if(!order.get(0).isAlive())
             c1dead.setVisibility(View.VISIBLE);

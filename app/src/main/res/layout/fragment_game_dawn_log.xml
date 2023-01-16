@@ -16,12 +16,27 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView27"
+                android:id="@+id/textView28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                tools:layout_editor_absoluteX="167dp"
-                tools:layout_editor_absoluteY="16dp" />
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textColor="#000000"
+                android:textSize="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgGameDawnLogNextPhase"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/nexticon"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView28"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </FrameLayout>

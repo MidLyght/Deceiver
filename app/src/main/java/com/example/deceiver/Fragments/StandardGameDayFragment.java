@@ -3,6 +3,7 @@ package com.example.deceiver.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 
 import com.example.deceiver.Activities.StandardGameActivity;
 import com.example.deceiver.DataClasses.StandardCharacter;
+import com.example.deceiver.Enums.Phase;
 import com.example.deceiver.Enums.StandardRole;
 import com.example.deceiver.R;
 
@@ -25,7 +27,7 @@ public class StandardGameDayFragment extends Fragment {
 
     private View objectStandardGameDayFragment;
     public StandardGameActivity sga;
-    private ImageView c1,c2,c3,c4,c5,c6,c7,c8,c1dead,c2dead,c3dead,c4dead,c5dead,c6dead,c7dead,c8dead,c1role,c2role,c3role,c4role,c5role,c6role,c7role,c8role;
+    private ImageView c1,c2,c3,c4,c5,c6,c7,c8,c1dead,c2dead,c3dead,c4dead,c5dead,c6dead,c7dead,c8dead,c1role,c2role,c3role,c4role,c5role,c6role,c7role,c8role,c1lynch,c2lynch,c3lynch,c4lynch,c5lynch,c6lynch,c7lynch,c8lynch,nextPhase;
     ArrayList<StandardCharacter> order;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -72,7 +74,7 @@ public class StandardGameDayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        objectStandardGameDayFragment=inflater.inflate(R.layout.fragment_log_in_page,container,false);
+        objectStandardGameDayFragment=inflater.inflate(R.layout.fragment_game_day,container,false);
         attachComponents();
 
         return objectStandardGameDayFragment;
@@ -119,6 +121,198 @@ public class StandardGameDayFragment extends Fragment {
         c6role=objectStandardGameDayFragment.findViewById(R.id.imgGameDayChar6Role);
         c7role=objectStandardGameDayFragment.findViewById(R.id.imgGameDayChar7Role);
         c8role=objectStandardGameDayFragment.findViewById(R.id.imgGameDayChar8Role);
+
+        c1lynch=objectStandardGameDayFragment.findViewById(R.id.imgGameDayChar1Lynch);
+        c2lynch=objectStandardGameDayFragment.findViewById(R.id.imgGameDayChar2Lynch);
+        c3lynch=objectStandardGameDayFragment.findViewById(R.id.imgGameDayChar3Lynch);
+        c4lynch=objectStandardGameDayFragment.findViewById(R.id.imgGameDayChar4Lynch);
+        c5lynch=objectStandardGameDayFragment.findViewById(R.id.imgGameDayChar5Lynch);
+        c6lynch=objectStandardGameDayFragment.findViewById(R.id.imgGameDayChar6Lynch);
+        c7lynch=objectStandardGameDayFragment.findViewById(R.id.imgGameDayChar7Lynch);
+        c8lynch=objectStandardGameDayFragment.findViewById(R.id.imgGameDayChar8Lynch);
+
+        nextPhase=objectStandardGameDayFragment.findViewById(R.id.imgGameDayNextPhase);
+
+        nextPhase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(c1lynch.getVisibility()==View.VISIBLE){
+                    c1lynch.setVisibility(View.INVISIBLE);
+                    order.get(0).setAlive(false);
+                }
+                if(c2lynch.getVisibility()==View.VISIBLE){
+                    c2lynch.setVisibility(View.INVISIBLE);
+                    order.get(1).setAlive(false);
+                }
+                if(c3lynch.getVisibility()==View.VISIBLE){
+                    c3lynch.setVisibility(View.INVISIBLE);
+                    order.get(2).setAlive(false);
+                }
+                if(c4lynch.getVisibility()==View.VISIBLE){
+                    c4lynch.setVisibility(View.INVISIBLE);
+                    order.get(3).setAlive(false);
+                }
+                if(c5lynch.getVisibility()==View.VISIBLE){
+                    c5lynch.setVisibility(View.INVISIBLE);
+                    order.get(4).setAlive(false);
+                }
+                if(c6lynch.getVisibility()==View.VISIBLE){
+                    c6lynch.setVisibility(View.INVISIBLE);
+                    order.get(5).setAlive(false);
+                }
+                if(c7lynch.getVisibility()==View.VISIBLE){
+                    c7lynch.setVisibility(View.INVISIBLE);
+                    order.get(6).setAlive(false);
+                }
+                if(c8lynch.getVisibility()==View.VISIBLE){
+                    c8lynch.setVisibility(View.INVISIBLE);
+                    order.get(7).setAlive(false);
+                }
+                sga.dayCount++;
+                StandardGameDawnFragment standardGameDawnFragment=new StandardGameDawnFragment();
+                FragmentManager manager=getFragmentManager();
+                manager.beginTransaction()
+                        .replace(R.id.frameLayoutGame,standardGameDawnFragment,standardGameDawnFragment.getTag())
+                        .commit();
+            }
+        });
+        
+        c1lynch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(c1lynch.getVisibility()==View.INVISIBLE) {
+                    c1lynch.setVisibility(View.VISIBLE);
+                    c2lynch.setVisibility(View.INVISIBLE);
+                    c3lynch.setVisibility(View.INVISIBLE);
+                    c4lynch.setVisibility(View.INVISIBLE);
+                    c5lynch.setVisibility(View.INVISIBLE);
+                    c6lynch.setVisibility(View.INVISIBLE);
+                    c7lynch.setVisibility(View.INVISIBLE);
+                    c8lynch.setVisibility(View.INVISIBLE);
+                }
+                else
+                    c1lynch.setVisibility(View.INVISIBLE);
+            }
+        });
+        c2lynch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(c1lynch.getVisibility()==View.INVISIBLE) {
+                    c2lynch.setVisibility(View.VISIBLE);
+                    c1lynch.setVisibility(View.INVISIBLE);
+                    c3lynch.setVisibility(View.INVISIBLE);
+                    c4lynch.setVisibility(View.INVISIBLE);
+                    c5lynch.setVisibility(View.INVISIBLE);
+                    c6lynch.setVisibility(View.INVISIBLE);
+                    c7lynch.setVisibility(View.INVISIBLE);
+                    c8lynch.setVisibility(View.INVISIBLE);
+                }
+                else
+                    c2lynch.setVisibility(View.INVISIBLE);
+            }
+        });
+        c3lynch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(c3lynch.getVisibility()==View.INVISIBLE) {
+                    c3lynch.setVisibility(View.VISIBLE);
+                    c2lynch.setVisibility(View.INVISIBLE);
+                    c1lynch.setVisibility(View.INVISIBLE);
+                    c4lynch.setVisibility(View.INVISIBLE);
+                    c5lynch.setVisibility(View.INVISIBLE);
+                    c6lynch.setVisibility(View.INVISIBLE);
+                    c7lynch.setVisibility(View.INVISIBLE);
+                    c8lynch.setVisibility(View.INVISIBLE);
+                }
+                else
+                    c3lynch.setVisibility(View.INVISIBLE);
+            }
+        });
+        c4lynch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(c4lynch.getVisibility()==View.INVISIBLE) {
+                    c4lynch.setVisibility(View.VISIBLE);
+                    c2lynch.setVisibility(View.INVISIBLE);
+                    c3lynch.setVisibility(View.INVISIBLE);
+                    c1lynch.setVisibility(View.INVISIBLE);
+                    c5lynch.setVisibility(View.INVISIBLE);
+                    c6lynch.setVisibility(View.INVISIBLE);
+                    c7lynch.setVisibility(View.INVISIBLE);
+                    c8lynch.setVisibility(View.INVISIBLE);
+                }
+                else
+                    c4lynch.setVisibility(View.INVISIBLE);
+            }
+        });
+        c5lynch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(c5lynch.getVisibility()==View.INVISIBLE) {
+                    c5lynch.setVisibility(View.VISIBLE);
+                    c2lynch.setVisibility(View.INVISIBLE);
+                    c3lynch.setVisibility(View.INVISIBLE);
+                    c4lynch.setVisibility(View.INVISIBLE);
+                    c1lynch.setVisibility(View.INVISIBLE);
+                    c6lynch.setVisibility(View.INVISIBLE);
+                    c7lynch.setVisibility(View.INVISIBLE);
+                    c8lynch.setVisibility(View.INVISIBLE);
+                }
+                else
+                    c5lynch.setVisibility(View.INVISIBLE);
+            }
+        });
+        c6lynch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(c6lynch.getVisibility()==View.INVISIBLE) {
+                    c6lynch.setVisibility(View.VISIBLE);
+                    c2lynch.setVisibility(View.INVISIBLE);
+                    c3lynch.setVisibility(View.INVISIBLE);
+                    c4lynch.setVisibility(View.INVISIBLE);
+                    c5lynch.setVisibility(View.INVISIBLE);
+                    c1lynch.setVisibility(View.INVISIBLE);
+                    c7lynch.setVisibility(View.INVISIBLE);
+                    c8lynch.setVisibility(View.INVISIBLE);
+                }
+                else
+                    c6lynch.setVisibility(View.INVISIBLE);
+            }
+        });
+        c7lynch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(c7lynch.getVisibility()==View.INVISIBLE) {
+                    c7lynch.setVisibility(View.VISIBLE);
+                    c2lynch.setVisibility(View.INVISIBLE);
+                    c3lynch.setVisibility(View.INVISIBLE);
+                    c4lynch.setVisibility(View.INVISIBLE);
+                    c5lynch.setVisibility(View.INVISIBLE);
+                    c6lynch.setVisibility(View.INVISIBLE);
+                    c1lynch.setVisibility(View.INVISIBLE);
+                    c8lynch.setVisibility(View.INVISIBLE);
+                }
+                else
+                    c7lynch.setVisibility(View.INVISIBLE);
+            }
+        });
+        c8lynch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(c8lynch.getVisibility()==View.INVISIBLE) {
+                    c8lynch.setVisibility(View.VISIBLE);
+                    c2lynch.setVisibility(View.INVISIBLE);
+                    c3lynch.setVisibility(View.INVISIBLE);
+                    c4lynch.setVisibility(View.INVISIBLE);
+                    c5lynch.setVisibility(View.INVISIBLE);
+                    c6lynch.setVisibility(View.INVISIBLE);
+                    c7lynch.setVisibility(View.INVISIBLE);
+                    c1lynch.setVisibility(View.INVISIBLE);
+                }
+                else
+                    c8lynch.setVisibility(View.INVISIBLE);
+            }
+        });
 
         if(!order.get(0).isAlive())
             c1dead.setVisibility(View.VISIBLE);

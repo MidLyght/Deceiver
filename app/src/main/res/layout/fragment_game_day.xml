@@ -357,5 +357,121 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar1Lynch"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="230dp"
+            android:layout_marginBottom="330dp"
+            android:src="@drawable/lynchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar2Lynch"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginBottom="330dp"
+            android:src="@drawable/lynchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar3Lynch"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="230dp"
+            android:layout_marginBottom="80dp"
+            android:src="@drawable/lynchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar4Lynch"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginBottom="80dp"
+            android:src="@drawable/lynchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar5Lynch"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginEnd="230dp"
+            android:src="@drawable/lynchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar6Lynch"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginTop="170dp"
+            android:src="@drawable/lynchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar7Lynch"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="420dp"
+            android:layout_marginEnd="230dp"
+            android:src="@drawable/lynchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameDayChar8Lynch"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginTop="420dp"
+            android:src="@drawable/lynchicon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGameDayNextPhase"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="650dp"
+            android:src="@drawable/nexticon"
+            app:tint="#2EADEC"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

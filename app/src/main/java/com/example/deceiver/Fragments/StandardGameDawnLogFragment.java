@@ -3,11 +3,16 @@ package com.example.deceiver.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.deceiver.Activities.StandardGameActivity;
+import com.example.deceiver.Enums.Phase;
 import com.example.deceiver.R;
 
 /**
@@ -16,6 +21,11 @@ import com.example.deceiver.R;
  * create an instance of this fragment.
  */
 public class StandardGameDawnLogFragment extends Fragment {
+
+    private TextView dawnLog;
+    private ImageView nextPhase;
+    public StandardGameActivity sga;
+    View objectStandardGameDawnLogFragment;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +71,24 @@ public class StandardGameDawnLogFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game_dawn_log, container, false);
+        objectStandardGameDawnLogFragment=inflater.inflate(R.layout.fragment_game_dawn_log,container,false);
+
+        sga=(StandardGameActivity) getActivity();
+        dawnLog=objectStandardGameDawnLogFragment.findViewById(R.id.textView28);
+        nextPhase=objectStandardGameDawnLogFragment.findViewById(R.id.imgGameDawnLogNextPhase);
+
+        dawnLog.setText(sga.dawnLog);
+        nextPhase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StandardGameNightFragment standardGameNightFragment=new StandardGameNightFragment();
+                FragmentManager manager=getFragmentManager();
+                manager.beginTransaction()
+                        .replace(R.id.frameLayoutGame,standardGameNightFragment,standardGameNightFragment.getTag())
+                        .commit();
+            }
+        });
+
+        return objectStandardGameDawnLogFragment;
     }
 }

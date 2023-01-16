@@ -12,11 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.widget.ImageView;
 
 import com.example.deceiver.DataClasses.StandardCharacter;
 import com.example.deceiver.Enums.Phase;
-import com.example.deceiver.Fragments.LogInFragment;
+import com.example.deceiver.Enums.StandardTeam;
 import com.example.deceiver.Fragments.StandardGameDawnFragment;
 import com.example.deceiver.Fragments.StandardGameDawnLogFragment;
 import com.example.deceiver.Fragments.StandardGameDayFragment;
@@ -32,43 +31,17 @@ public class StandardGameActivity extends AppCompatActivity {
 
     public StandardCharacter deceiver,traitor,farmer1,farmer2,witch,blacksmith,seer,guard;
     public ArrayList<StandardCharacter> order;
-    int dayCount=0,dawnCount=0,nightCount=0;
+    public int dayCount=1,dawnCount=0,nightCount=0;
     public String dawnLog,nightLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_standard_game);
 
-        boolean gameEnded=false;
-        Phase phase=Phase.Dawn;
-
-        createCharacters();
-
-        while(gameEnded=false){
-            if(phase==Phase.Dawn) {
-                goToDawn();
-                dawnCount++;
-            }
-            if (phase==Phase.DawnLog) {
-                goToDawnLog();
-            }
-            if(phase==Phase.Night) {
-                goToNight();
-                nightCount++;
-            }
-            if(phase==Phase.NightLog) {
-                goToNightLog();
-            }
-            if(phase==Phase.Day) {
-                goToDay();
-                dayCount++;
-            }
-
-            if(dayCount==5 && blacksmith.isAlive()){
-                blacksmith.setHasSword(true);
-            }
-        }
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayoutGame, new StandardGameDawnFragment());
+        ft.commit();
     }
 
     private void dawnPowers(){
@@ -85,7 +58,7 @@ public class StandardGameActivity extends AppCompatActivity {
         if(guard.isAlive()){
             Random random=new Random();
             int val=random.nextInt(8);
-            while(list.get(val).isAlive()==false){
+            while(list.get(val).isAlive()==false||list.get(val)==guard){
                 val=random.nextInt(8);
             }
             list.get(val).setProtected(true);
@@ -99,7 +72,6 @@ public class StandardGameActivity extends AppCompatActivity {
                 val=random.nextInt(8);
             }
             list.get(val).setVivified(true);
-            dawnLog+="The witch has chosen to vivify character "+val+".\n";
         }
 
         if(seer.isAlive() && dawnCount%3==0){
@@ -124,7 +96,7 @@ public class StandardGameActivity extends AppCompatActivity {
         list.add(witch);
         list.add(seer);
 
-        if(deceiver.isAlive() || traitor.isAlive()){
+        if((deceiver.isAlive()&&!deceiver.isHeavilyWounded())||(traitor.isAlive()&&!traitor.isHeavilyWounded()&&!deceiver.isAlive())){
             Random random=new Random();
             int val=random.nextInt(8);
             while(list.get(val).isAlive()==false || list.get(val).getRole()==Deceiver || list.get(val).getRole()==Traitor){
@@ -132,18 +104,22 @@ public class StandardGameActivity extends AppCompatActivity {
             }
             if(list.get(val).isHasSword()){
                 deceiver.setHeavilyWounded(true);
+                traitor.setHeavilyWounded(true);
                 deceiver.setWoundCounter(1);
+                traitor.setWoundCounter(1);
                 blacksmith.setExposed(true);
                 nightLog+="The blacksmith has heavily wounded the deceiver!\n";
             }
             else if(list.get(val).isVivified()){
                 //
                 nightLog+="Character "+val+" was saved by the witch!\n";
+                list.get(val).setVivified(false);
             }
             else if(list.get(val).isProtected()){
                 guard.setExposed(true);
                 guard.setAlive(false);
                 nightLog+="The guard died protecting character "+val+".\n";
+                list.get(val).setProtected(false);
             }
             else{
                 list.get(val).setAlive(false);
@@ -193,7 +169,9 @@ public class StandardGameActivity extends AppCompatActivity {
         blacksmith=new StandardCharacter();
 
         deceiver.setRole(Deceiver);
+        deceiver.setTeam(StandardTeam.Deceivers);
         traitor.setRole(Traitor);
+        traitor.setTeam(StandardTeam.Deceivers);
         witch.setRole(Witch);
         farmer1.setRole(Farmer);
         farmer2.setRole(Farmer);

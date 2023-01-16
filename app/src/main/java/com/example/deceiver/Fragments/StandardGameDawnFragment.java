@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 
 import com.example.deceiver.Activities.StandardGameActivity;
 import com.example.deceiver.DataClasses.StandardCharacter;
+import com.example.deceiver.Enums.Phase;
 import com.example.deceiver.Enums.StandardRole;
 import com.example.deceiver.R;
 
@@ -24,9 +26,9 @@ import java.util.ArrayList;
  */
 public class StandardGameDawnFragment extends Fragment {
 
-    private View objectStandardGameDawnFragment;
+    View objectStandardGameDawnFragment;
     public StandardGameActivity sga;
-    private ImageView c1,c2,c3,c4,c5,c6,c7,c8,c1dead,c2dead,c3dead,c4dead,c5dead,c6dead,c7dead,c8dead,c1role,c2role,c3role,c4role,c5role,c6role,c7role,c8role;
+    private ImageView c1,c2,c3,c4,c5,c6,c7,c8,c1dead,c2dead,c3dead,c4dead,c5dead,c6dead,c7dead,c8dead,c1role,c2role,c3role,c4role,c5role,c6role,c7role,c8role,nextPhase;
     ArrayList<StandardCharacter> order;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -72,7 +74,7 @@ public class StandardGameDawnFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        objectStandardGameDawnFragment=inflater.inflate(R.layout.fragment_log_in_page,container,false);
+        objectStandardGameDawnFragment=inflater.inflate(R.layout.fragment_game_dawn,container,false);
         attachComponents();
 
         return objectStandardGameDawnFragment;
@@ -119,6 +121,20 @@ public class StandardGameDawnFragment extends Fragment {
         c6role=objectStandardGameDawnFragment.findViewById(R.id.imgGameDawnChar6Role);
         c7role=objectStandardGameDawnFragment.findViewById(R.id.imgGameDawnChar7Role);
         c8role=objectStandardGameDawnFragment.findViewById(R.id.imgGameDawnChar8Role);
+
+        nextPhase=objectStandardGameDawnFragment.findViewById(R.id.imgGameDawnNextPhase);
+
+        nextPhase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sga.dawnCount++;
+                StandardGameDawnLogFragment standardGameDawnLogFragment=new StandardGameDawnLogFragment();
+                FragmentManager manager=getFragmentManager();
+                manager.beginTransaction()
+                        .replace(R.id.frameLayoutGame,standardGameDawnLogFragment,standardGameDawnLogFragment.getTag())
+                        .commit();
+            }
+        });
 
         if(!order.get(0).isAlive())
             c1dead.setVisibility(View.VISIBLE);
@@ -257,21 +273,21 @@ public class StandardGameDawnFragment extends Fragment {
         if(order.get(7).getRole()==StandardRole.Guard)
             c8role.setImageResource(R.drawable.shieldicon);
 
-        if(!order.get(0).isExposed())
+        if(order.get(0).isExposed())
             c1role.setVisibility(View.VISIBLE);
-        if(!order.get(1).isExposed())
+        if(order.get(1).isExposed())
             c2role.setVisibility(View.VISIBLE);
-        if(!order.get(2).isExposed())
+        if(order.get(2).isExposed())
             c3role.setVisibility(View.VISIBLE);
-        if(!order.get(3).isExposed())
+        if(order.get(3).isExposed())
             c4role.setVisibility(View.VISIBLE);
-        if(!order.get(4).isExposed())
+        if(order.get(4).isExposed())
             c5role.setVisibility(View.VISIBLE);
-        if(!order.get(5).isExposed())
+        if(order.get(5).isExposed())
             c6role.setVisibility(View.VISIBLE);
-        if(!order.get(6).isExposed())
+        if(order.get(6).isExposed())
             c7role.setVisibility(View.VISIBLE);
-        if(!order.get(7).isExposed())
+        if(order.get(7).isExposed())
             c8role.setVisibility(View.VISIBLE);
     }
 }

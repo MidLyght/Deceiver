@@ -1,5 +1,6 @@
 package com.example.deceiver.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.deceiver.Activities.MainPageActivity;
+import com.example.deceiver.Activities.StandardGameActivity;
 import com.example.deceiver.R;
 
 /**
@@ -66,6 +69,14 @@ public class MainPageFragment extends Fragment {
                         .replace(R.id.frameLayoutMainPage,introductionFragment,introductionFragment.getTag())
                         .addToBackStack(null)
                         .commit();
+            }
+        });
+
+        btnPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent standardGameActivityIntent = new Intent(getContext(), StandardGameActivity.class);
+                startActivity(standardGameActivityIntent);
             }
         });
     }

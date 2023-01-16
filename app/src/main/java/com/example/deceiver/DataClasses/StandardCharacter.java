@@ -1,9 +1,11 @@
 package com.example.deceiver.DataClasses;
 
 import com.example.deceiver.Enums.StandardRole;
+import com.example.deceiver.Enums.StandardTeam;
 
 public class StandardCharacter {
     private StandardRole role;
+    private StandardTeam team;
     private boolean isAlive;
     private boolean isProtected;
     private boolean hasSword;
@@ -16,6 +18,10 @@ public class StandardCharacter {
 
     public StandardCharacter(StandardRole role) {
         this.role = role;
+        if(role==StandardRole.Deceiver||role==StandardRole.Traitor)
+            this.team=StandardTeam.Deceivers;
+        else
+            this.team=StandardTeam.Village;
         this.isAlive=true;
         this.isProtected=false;
         this.hasSword=false;
@@ -29,6 +35,7 @@ public class StandardCharacter {
 
     public StandardCharacter() {
         this.role = StandardRole.Farmer;
+        this.team=StandardTeam.Village;
         this.isAlive=true;
         this.isProtected=false;
         this.hasSword=false;
@@ -116,5 +123,13 @@ public class StandardCharacter {
 
     public void setVivified(boolean vivified) {
         isVivified = vivified;
+    }
+
+    public StandardTeam getTeam() {
+        return team;
+    }
+
+    public void setTeam(StandardTeam team) {
+        this.team = team;
     }
 }
