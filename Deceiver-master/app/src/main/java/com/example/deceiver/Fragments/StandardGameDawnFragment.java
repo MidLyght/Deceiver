@@ -28,6 +28,7 @@ import com.example.deceiver.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,10 +38,9 @@ import java.util.Collections;
 public class StandardGameDawnFragment extends Fragment {
 
     View objectStandardGameDawnFragment;
-    public StandardGameActivity sga;
-    public StandardCharacter deceiver,traitor,farmer1,farmer2,witch,blacksmith,seer,guard;
+    private StandardCharacter deceiver,traitor,farmer1,farmer2,witch,blacksmith,seer,guard;
     private ImageView c1,c2,c3,c4,c5,c6,c7,c8,c1dead,c2dead,c3dead,c4dead,c5dead,c6dead,c7dead,c8dead,c1role,c2role,c3role,c4role,c5role,c6role,c7role,c8role,nextPhase;
-    ArrayList<StandardCharacter> order;
+    private ArrayList<StandardCharacter> order;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,15 +85,83 @@ public class StandardGameDawnFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        StandardGameActivity sga=(StandardGameActivity) getActivity();
+
         objectStandardGameDawnFragment=inflater.inflate(R.layout.fragment_game_dawn,container,false);
-        createCharacters();
+        if(sga.dawnCount==1)
+            createCharacters();
         attachComponents();
+        dawnPowers();
 
         return objectStandardGameDawnFragment;
     }
 
+    private void dawnPowers(){
+        StandardGameActivity sga=(StandardGameActivity) getActivity();
+        ArrayList<StandardCharacter> list = new ArrayList<StandardCharacter>();
+        list.add(deceiver);
+        list.add(traitor);
+        list.add(farmer1);
+        list.add(farmer2);
+        list.add(guard);
+        list.add(blacksmith);
+        list.add(witch);
+        list.add(seer);
+
+        if(guard.isAlive()){
+            Random random=new Random();
+            int val=random.nextInt(8);
+            while(list.get(val).isAlive()==false||list.get(val)==guard){
+                val=random.nextInt(8);
+            }
+            list.get(val).setProtected(true);
+            sga.dawnLog+="The guard has chosen to protect character "+val+".\n";
+        }
+
+        if(witch.isAlive()){
+            Random random=new Random();
+            int val=random.nextInt(8);
+            while(list.get(val).isAlive()==false){
+                val=random.nextInt(8);
+            }
+            list.get(val).setVivified(true);
+        }
+
+        if(seer.isAlive() && sga.dawnCount%3==0){
+            Random random=new Random();
+            int val=random.nextInt(8);
+            while(list.get(val).isAlive()==false){
+                val=random.nextInt(8);
+            }
+            list.get(val).setExposed(true);
+            sga.dawnLog+="The seer has revealed the identity of character "+(val+1)+"!\n";
+        }
+
+        sga.deceiver=deceiver;
+        sga.traitor=traitor;
+        sga.witch=witch;
+        sga.farmer1=farmer1;
+        sga.farmer2=farmer2;
+        sga.blacksmith=blacksmith;
+        sga.seer=seer;
+        sga.guard=guard;
+
+        sga.order=order;
+    }
+
     public void attachComponents(){
-        sga=(StandardGameActivity) getActivity();
+        StandardGameActivity sga=(StandardGameActivity) getActivity();
+
+        deceiver=sga.deceiver;
+        traitor=sga.traitor;
+        witch=sga.witch;
+        farmer1=sga.farmer1;
+        farmer2=sga.farmer2;
+        blacksmith=sga.blacksmith;
+        seer=sga.seer;
+        guard=sga.guard;
+
+        order=sga.order;
 
         c1=objectStandardGameDawnFragment.findViewById(R.id.imgGameDawnChar1);
         c2=objectStandardGameDawnFragment.findViewById(R.id.imgGameDawnChar2);
@@ -292,6 +360,7 @@ public class StandardGameDawnFragment extends Fragment {
     }
 
     private void createCharacters(){
+        StandardGameActivity sga=(StandardGameActivity) getActivity();
         witch=new StandardCharacter();
         deceiver=new StandardCharacter();
         traitor=new StandardCharacter();
@@ -322,6 +391,15 @@ public class StandardGameDawnFragment extends Fragment {
         order.add(seer);
         order.add(blacksmith);
         Collections.shuffle(order);
+
+        sga.deceiver=deceiver;
+        sga.traitor=traitor;
+        sga.witch=witch;
+        sga.farmer1=farmer1;
+        sga.farmer2=farmer2;
+        sga.blacksmith=blacksmith;
+        sga.seer=seer;
+        sga.guard=guard;
 
         sga.order=order;
     }

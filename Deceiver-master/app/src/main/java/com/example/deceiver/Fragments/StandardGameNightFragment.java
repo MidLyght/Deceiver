@@ -1,5 +1,8 @@
 package com.example.deceiver.Fragments;
 
+import static com.example.deceiver.Enums.StandardRole.Deceiver;
+import static com.example.deceiver.Enums.StandardRole.Traitor;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +20,7 @@ import com.example.deceiver.Enums.StandardRole;
 import com.example.deceiver.R;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,10 +29,10 @@ import java.util.ArrayList;
  */
 public class StandardGameNightFragment extends Fragment {
 
-    private View objectStandardGameNightFragment;
-    public StandardGameActivity sga;
+    View objectStandardGameNightFragment;
+    private StandardCharacter deceiver,traitor,farmer1,farmer2,witch,blacksmith,seer,guard;
     private ImageView c1,c2,c3,c4,c5,c6,c7,c8,c1dead,c2dead,c3dead,c4dead,c5dead,c6dead,c7dead,c8dead,c1role,c2role,c3role,c4role,c5role,c6role,c7role,c8role,nextPhase;
-    ArrayList<StandardCharacter> order;
+    private ArrayList<StandardCharacter> order;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,22 +80,22 @@ public class StandardGameNightFragment extends Fragment {
         // Inflate the layout for this fragment
         objectStandardGameNightFragment=inflater.inflate(R.layout.fragment_game_night,container,false);
         attachComponents();
+        nightPowers();
 
         return objectStandardGameNightFragment;
     }
 
     private void attachComponents() {
-        StandardCharacter deceiverNight,traitorNight,witchNight,farmer1Night,farmer2Night,blacksmithNight,seerNight,guardNight;
-        sga=(StandardGameActivity) getActivity();
+        StandardGameActivity sga=(StandardGameActivity) getActivity();
 
-        deceiverNight=sga.deceiver;
-        traitorNight=sga.traitor;
-        witchNight=sga.witch;
-        farmer1Night=sga.farmer1;
-        farmer2Night=sga.farmer2;
-        blacksmithNight=sga.blacksmith;
-        seerNight=sga.seer;
-        guardNight=sga.guard;
+        deceiver=sga.deceiver;
+        traitor=sga.traitor;
+        witch=sga.witch;
+        farmer1=sga.farmer1;
+        farmer2=sga.farmer2;
+        blacksmith=sga.blacksmith;
+        seer=sga.seer;
+        guard=sga.guard;
 
         order=sga.order;
 
@@ -273,21 +277,76 @@ public class StandardGameNightFragment extends Fragment {
         if(order.get(7).getRole()==StandardRole.Guard)
             c8role.setImageResource(R.drawable.shieldicon);
 
-        if(!order.get(0).isExposed())
+        if(order.get(0).isExposed())
             c1role.setVisibility(View.VISIBLE);
-        if(!order.get(1).isExposed())
+        if(order.get(1).isExposed())
             c2role.setVisibility(View.VISIBLE);
-        if(!order.get(2).isExposed())
+        if(order.get(2).isExposed())
             c3role.setVisibility(View.VISIBLE);
-        if(!order.get(3).isExposed())
+        if(order.get(3).isExposed())
             c4role.setVisibility(View.VISIBLE);
-        if(!order.get(4).isExposed())
+        if(order.get(4).isExposed())
             c5role.setVisibility(View.VISIBLE);
-        if(!order.get(5).isExposed())
+        if(order.get(5).isExposed())
             c6role.setVisibility(View.VISIBLE);
-        if(!order.get(6).isExposed())
+        if(order.get(6).isExposed())
             c7role.setVisibility(View.VISIBLE);
-        if(!order.get(7).isExposed())
+        if(order.get(7).isExposed())
             c8role.setVisibility(View.VISIBLE);
+    }
+
+    private void nightPowers(){
+        StandardGameActivity sga=(StandardGameActivity) getActivity();
+
+        if((deceiver.isAlive()&&!deceiver.isHeavilyWounded())||(traitor.isAlive()&&!traitor.isHeavilyWounded()&&!deceiver.isAlive())){
+            Random random=new Random();
+            int val=random.nextInt(8);
+            while(order.get(val).isAlive()==false || order.get(val).getRole()==Deceiver || order.get(val).getRole()==Traitor){
+                val=random.nextInt(8);
+            }
+            if(order.get(val).isHasSword()){
+                deceiver.setHeavilyWounded(true);
+                traitor.setHeavilyWounded(true);
+                deceiver.setWoundCounter(1);
+                traitor.setWoundCounter(1);
+                blacksmith.setExposed(true);
+                sga.nightLog+="The blacksmith has heavily wounded the deceiver!\n";
+            }
+            else if(order.get(val).isVivified()){
+                //
+                sga.nightLog+="Character "+val+" was saved by the witch!\n";
+                order.get(val).setVivified(false);
+            }
+            else if(order.get(val).isProtected()){
+                guard.setExposed(true);
+                guard.setAlive(false);
+                sga.nightLog+="The guard died protecting character "+val+".\n";
+                order.get(val).setProtected(false);
+            }
+            else{
+                order.get(val).setAlive(false);
+                sga.nightLog+="Character "+val+" died.\n";
+            }
+        }
+
+        deceiver.setVivified(false);
+        traitor.setVivified(false);
+        witch.setVivified(false);
+        guard.setVivified(false);
+        farmer1.setVivified(false);
+        farmer2.setVivified(false);
+        seer.setVivified(false);
+        blacksmith.setVivified(false);
+
+        sga.deceiver=deceiver;
+        sga.traitor=traitor;
+        sga.witch=witch;
+        sga.farmer1=farmer1;
+        sga.farmer2=farmer2;
+        sga.blacksmith=blacksmith;
+        sga.seer=seer;
+        sga.guard=guard;
+
+        sga.order=order;
     }
 }

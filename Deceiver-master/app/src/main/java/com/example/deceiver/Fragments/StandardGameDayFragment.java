@@ -176,8 +176,8 @@ public class StandardGameDayFragment extends Fragment {
                         .commit();
             }
         });
-        
-        c1lynch.setOnClickListener(new View.OnClickListener() {
+
+        c1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(c1lynch.getVisibility()==View.INVISIBLE) {
@@ -194,10 +194,11 @@ public class StandardGameDayFragment extends Fragment {
                     c1lynch.setVisibility(View.INVISIBLE);
             }
         });
-        c2lynch.setOnClickListener(new View.OnClickListener() {
+
+        c2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(c1lynch.getVisibility()==View.INVISIBLE) {
+                if(c2lynch.getVisibility()==View.INVISIBLE) {
                     c2lynch.setVisibility(View.VISIBLE);
                     c1lynch.setVisibility(View.INVISIBLE);
                     c3lynch.setVisibility(View.INVISIBLE);
@@ -211,7 +212,7 @@ public class StandardGameDayFragment extends Fragment {
                     c2lynch.setVisibility(View.INVISIBLE);
             }
         });
-        c3lynch.setOnClickListener(new View.OnClickListener() {
+        c3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(c3lynch.getVisibility()==View.INVISIBLE) {
@@ -228,7 +229,7 @@ public class StandardGameDayFragment extends Fragment {
                     c3lynch.setVisibility(View.INVISIBLE);
             }
         });
-        c4lynch.setOnClickListener(new View.OnClickListener() {
+        c4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(c4lynch.getVisibility()==View.INVISIBLE) {
@@ -245,7 +246,7 @@ public class StandardGameDayFragment extends Fragment {
                     c4lynch.setVisibility(View.INVISIBLE);
             }
         });
-        c5lynch.setOnClickListener(new View.OnClickListener() {
+        c5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(c5lynch.getVisibility()==View.INVISIBLE) {
@@ -262,7 +263,7 @@ public class StandardGameDayFragment extends Fragment {
                     c5lynch.setVisibility(View.INVISIBLE);
             }
         });
-        c6lynch.setOnClickListener(new View.OnClickListener() {
+        c6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(c6lynch.getVisibility()==View.INVISIBLE) {
@@ -279,7 +280,7 @@ public class StandardGameDayFragment extends Fragment {
                     c6lynch.setVisibility(View.INVISIBLE);
             }
         });
-        c7lynch.setOnClickListener(new View.OnClickListener() {
+        c7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(c7lynch.getVisibility()==View.INVISIBLE) {
@@ -296,7 +297,7 @@ public class StandardGameDayFragment extends Fragment {
                     c7lynch.setVisibility(View.INVISIBLE);
             }
         });
-        c8lynch.setOnClickListener(new View.OnClickListener() {
+        c8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(c8lynch.getVisibility()==View.INVISIBLE) {
@@ -451,21 +452,21 @@ public class StandardGameDayFragment extends Fragment {
         if(order.get(7).getRole()==StandardRole.Guard)
             c8role.setImageResource(R.drawable.shieldicon);
 
-        if(!order.get(0).isExposed())
+        if(order.get(0).isExposed())
             c1role.setVisibility(View.VISIBLE);
-        if(!order.get(1).isExposed())
+        if(order.get(1).isExposed())
             c2role.setVisibility(View.VISIBLE);
-        if(!order.get(2).isExposed())
+        if(order.get(2).isExposed())
             c3role.setVisibility(View.VISIBLE);
-        if(!order.get(3).isExposed())
+        if(order.get(3).isExposed())
             c4role.setVisibility(View.VISIBLE);
-        if(!order.get(4).isExposed())
+        if(order.get(4).isExposed())
             c5role.setVisibility(View.VISIBLE);
-        if(!order.get(5).isExposed())
+        if(order.get(5).isExposed())
             c6role.setVisibility(View.VISIBLE);
-        if(!order.get(6).isExposed())
+        if(order.get(6).isExposed())
             c7role.setVisibility(View.VISIBLE);
-        if(!order.get(7).isExposed())
+        if(order.get(7).isExposed())
             c8role.setVisibility(View.VISIBLE);
     }
 }
