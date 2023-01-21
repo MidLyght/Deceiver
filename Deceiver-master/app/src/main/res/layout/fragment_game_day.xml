@@ -464,14 +464,15 @@
 
         <ImageView
             android:id="@+id/imgGameDayNextPhase"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="650dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="270dp"
+            android:layout_marginTop="640dp"
             android:src="@drawable/nexticon"
-            app:tint="#2EADEC"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#2EADEC" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -8,6 +8,8 @@ import static com.example.deceiver.Enums.StandardRole.Seer;
 import static com.example.deceiver.Enums.StandardRole.Traitor;
 import static com.example.deceiver.Enums.StandardRole.Witch;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -17,8 +19,11 @@ import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.deceiver.Activities.MainPageActivity;
 import com.example.deceiver.Activities.StandardGameActivity;
 import com.example.deceiver.DataClasses.StandardCharacter;
 import com.example.deceiver.Enums.Phase;
@@ -41,6 +46,10 @@ public class StandardGameDawnFragment extends Fragment {
     private StandardCharacter deceiver,traitor,farmer1,farmer2,witch,blacksmith,seer,guard;
     private ImageView c1,c2,c3,c4,c5,c6,c7,c8,c1dead,c2dead,c3dead,c4dead,c5dead,c6dead,c7dead,c8dead,c1role,c2role,c3role,c4role,c5role,c6role,c7role,c8role,nextPhase;
     private ArrayList<StandardCharacter> order;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog deceiverDialog,villageDialog;
+    private TextView decDays,decDawns,decNights,vilDays,vilDawns,vilNights;
+    private Button decRestart,decMenu,vilRestart,vilMenu;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -98,42 +107,33 @@ public class StandardGameDawnFragment extends Fragment {
 
     private void dawnPowers(){
         StandardGameActivity sga=(StandardGameActivity) getActivity();
-        ArrayList<StandardCharacter> list = new ArrayList<StandardCharacter>();
-        list.add(deceiver);
-        list.add(traitor);
-        list.add(farmer1);
-        list.add(farmer2);
-        list.add(guard);
-        list.add(blacksmith);
-        list.add(witch);
-        list.add(seer);
 
         if(guard.isAlive()){
             Random random=new Random();
             int val=random.nextInt(8);
-            while(list.get(val).isAlive()==false||list.get(val)==guard){
+            while(order.get(val).isAlive()==false||order.get(val)==guard){
                 val=random.nextInt(8);
             }
-            list.get(val).setProtected(true);
-            sga.dawnLog+="The guard has chosen to protect character "+val+".\n";
+            order.get(val).setProtected(true);
+            sga.dawnLog+="The guard has chosen to protect character "+(val+1)+".\n";
         }
 
         if(witch.isAlive()){
             Random random=new Random();
             int val=random.nextInt(8);
-            while(list.get(val).isAlive()==false){
+            while(order.get(val).isAlive()==false){
                 val=random.nextInt(8);
             }
-            list.get(val).setVivified(true);
+            order.get(val).setVivified(true);
         }
 
         if(seer.isAlive() && sga.dawnCount%3==0){
             Random random=new Random();
             int val=random.nextInt(8);
-            while(list.get(val).isAlive()==false){
+            while(order.get(val).isAlive()==false){
                 val=random.nextInt(8);
             }
-            list.get(val).setExposed(true);
+            order.get(val).setExposed(true);
             sga.dawnLog+="The seer has revealed the identity of character "+(val+1)+"!\n";
         }
 
@@ -203,6 +203,32 @@ public class StandardGameDawnFragment extends Fragment {
                         .commit();
             }
         });
+
+        if(!deceiver.isAlive()&&!traitor.isAlive()){
+            createVillageWinPopup();
+        }
+
+        if(!deceiver.isAlive()&&traitor.isAlive()||deceiver.isAlive()&&!traitor.isAlive())
+            sga.deceiverCount=1;
+
+        sga.villagerCount=0;
+
+        if(witch.isAlive())
+            sga.villagerCount++;
+        if(farmer1.isAlive())
+            sga.villagerCount++;
+        if(farmer2.isAlive())
+            sga.villagerCount++;
+        if(blacksmith.isAlive())
+            sga.villagerCount++;
+        if(seer.isAlive())
+            sga.villagerCount++;
+        if(guard.isAlive())
+            sga.villagerCount++;
+
+        if(sga.villagerCount<=sga.deceiverCount){
+            createDeceiverWinPopup();
+        }
 
         if(!order.get(0).isAlive())
             c1dead.setVisibility(View.VISIBLE);
@@ -404,4 +430,61 @@ public class StandardGameDawnFragment extends Fragment {
         sga.order=order;
     }
 
+    public void createDeceiverWinPopup(){
+        dialogBuilder=new AlertDialog.Builder(getContext());
+        final View contactPopupView=getLayoutInflater().inflate(R.layout.deceiverwinpopup,null);
+
+        decRestart=contactPopupView.findViewById(R.id.decRestart);
+        decMenu=contactPopupView.findViewById(R.id.decMenu);
+        decDays=contactPopupView.findViewById(R.id.decDays);
+        decDawns=contactPopupView.findViewById(R.id.decDawns);
+        decNights=contactPopupView.findViewById(R.id.decNights);
+
+        dialogBuilder.setView(contactPopupView);
+        deceiverDialog=dialogBuilder.create();
+        deceiverDialog.show();
+
+        decRestart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(),StandardGameActivity.class));
+            }
+        });
+
+        decMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), MainPageActivity.class));
+            }
+        });
+    }
+
+    public void createVillageWinPopup(){
+        dialogBuilder=new AlertDialog.Builder(getContext());
+        final View contactPopupView=getLayoutInflater().inflate(R.layout.villagewinpopup,null);
+
+        vilRestart=contactPopupView.findViewById(R.id.vilRestart);
+        vilMenu=contactPopupView.findViewById(R.id.vilMenu);
+        vilDays=contactPopupView.findViewById(R.id.vilDays);
+        vilDawns=contactPopupView.findViewById(R.id.vilDawns);
+        vilNights=contactPopupView.findViewById(R.id.vilNights);
+
+        dialogBuilder.setView(contactPopupView);
+        villageDialog=dialogBuilder.create();
+        villageDialog.show();
+
+        vilRestart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(),StandardGameActivity.class));
+            }
+        });
+
+        vilRestart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), MainPageActivity.class));
+            }
+        });
+    }
 }

@@ -132,6 +132,16 @@ public class StandardGameNightFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 sga.nightCount++;
+                if(deceiver.getWoundCounter()==1){
+                    deceiver.setWoundCounter(2);
+                    traitor.setWoundCounter(2);
+                }
+                if(deceiver.getWoundCounter()==2){
+                    deceiver.setWoundCounter(0);
+                    deceiver.setHeavilyWounded(false);
+                    traitor.setWoundCounter(0);
+                    traitor.setHeavilyWounded(false);
+                }
                 StandardGameNightLogFragment standardGameNightLogFragment=new StandardGameNightLogFragment();
                 FragmentManager manager=getFragmentManager();
                 manager.beginTransaction()
@@ -314,18 +324,18 @@ public class StandardGameNightFragment extends Fragment {
             }
             else if(order.get(val).isVivified()){
                 //
-                sga.nightLog+="Character "+val+" was saved by the witch!\n";
+                sga.nightLog+="Character "+(val+1)+" was saved by the witch!\n";
                 order.get(val).setVivified(false);
             }
             else if(order.get(val).isProtected()){
                 guard.setExposed(true);
                 guard.setAlive(false);
-                sga.nightLog+="The guard died protecting character "+val+".\n";
+                sga.nightLog+="The guard died protecting character "+(val+1)+".\n";
                 order.get(val).setProtected(false);
             }
             else{
                 order.get(val).setAlive(false);
-                sga.nightLog+="Character "+val+" died.\n";
+                sga.nightLog+="Character "+(val+1)+" died.\n";
             }
         }
 
@@ -337,6 +347,15 @@ public class StandardGameNightFragment extends Fragment {
         farmer2.setVivified(false);
         seer.setVivified(false);
         blacksmith.setVivified(false);
+
+        deceiver.setProtected(false);
+        traitor.setProtected(false);
+        witch.setProtected(false);
+        guard.setProtected(false);
+        farmer1.setProtected(false);
+        farmer2.setProtected(false);
+        seer.setProtected(false);
+        blacksmith.setProtected(false);
 
         sga.deceiver=deceiver;
         sga.traitor=traitor;

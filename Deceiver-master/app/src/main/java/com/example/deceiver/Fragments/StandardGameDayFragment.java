@@ -81,17 +81,7 @@ public class StandardGameDayFragment extends Fragment {
     }
 
     private void attachComponents() {
-        StandardCharacter deceiverDay,traitorDay,witchDay,farmer1Day,farmer2Day,blacksmithDay,seerDay,guardDay;
         sga=(StandardGameActivity) getActivity();
-
-        deceiverDay=sga.deceiver;
-        traitorDay=sga.traitor;
-        witchDay=sga.witch;
-        farmer1Day=sga.farmer1;
-        farmer2Day=sga.farmer2;
-        blacksmithDay=sga.blacksmith;
-        seerDay=sga.seer;
-        guardDay=sga.guard;
 
         order=sga.order;
 

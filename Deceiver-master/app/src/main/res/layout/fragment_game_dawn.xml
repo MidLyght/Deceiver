@@ -358,10 +358,12 @@
 
         <ImageView
             android:id="@+id/imgGameDawnNextPhase"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="650dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="270dp"
+            android:layout_marginTop="640dp"
             android:src="@drawable/nexticon"
+            app:tint="#3C2C1D"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

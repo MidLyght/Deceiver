@@ -33,6 +33,7 @@ public class StandardGameActivity extends AppCompatActivity {
     public StandardCharacter deceiver,traitor,farmer1,farmer2,witch,blacksmith,seer,guard;
     public ArrayList<StandardCharacter> order;
     public int dayCount=1,dawnCount=1,nightCount=0;
+    public int villagerCount=6,deceiverCount=2;
     public String dawnLog,nightLog;
 
     @Override
