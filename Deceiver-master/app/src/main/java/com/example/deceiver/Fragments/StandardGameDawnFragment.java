@@ -45,6 +45,7 @@ public class StandardGameDawnFragment extends Fragment {
     View objectStandardGameDawnFragment;
     private StandardCharacter deceiver,traitor,farmer1,farmer2,witch,blacksmith,seer,guard;
     private ImageView c1,c2,c3,c4,c5,c6,c7,c8,c1dead,c2dead,c3dead,c4dead,c5dead,c6dead,c7dead,c8dead,c1role,c2role,c3role,c4role,c5role,c6role,c7role,c8role,nextPhase;
+    private TextView dayNum;
     private ArrayList<StandardCharacter> order;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog deceiverDialog,villageDialog;
@@ -130,7 +131,7 @@ public class StandardGameDawnFragment extends Fragment {
         if(seer.isAlive() && sga.dawnCount%3==0){
             Random random=new Random();
             int val=random.nextInt(8);
-            while(order.get(val).isAlive()==false){
+            while(!order.get(val).isAlive()||order.get(val)==seer||order.get(val).isExposed()){
                 val=random.nextInt(8);
             }
             order.get(val).setExposed(true);
@@ -190,6 +191,9 @@ public class StandardGameDawnFragment extends Fragment {
         c7role=objectStandardGameDawnFragment.findViewById(R.id.imgGameDawnChar7Role);
         c8role=objectStandardGameDawnFragment.findViewById(R.id.imgGameDawnChar8Role);
 
+        dayNum=objectStandardGameDawnFragment.findViewById(R.id.txtGameDawnDayNum);
+        dayNum.setText("Day "+sga.dayCount);
+
         nextPhase=objectStandardGameDawnFragment.findViewById(R.id.imgGameDawnNextPhase);
 
         nextPhase.setOnClickListener(new View.OnClickListener() {
@@ -204,9 +208,11 @@ public class StandardGameDawnFragment extends Fragment {
             }
         });
 
-        if(!deceiver.isAlive()&&!traitor.isAlive()){
+        if(!sga.deceiver.isAlive()&&!sga.traitor.isAlive()){
             createVillageWinPopup();
         }
+
+        sga.deceiverCount=2;
 
         if(!deceiver.isAlive()&&traitor.isAlive()||deceiver.isAlive()&&!traitor.isAlive())
             sga.deceiverCount=1;
@@ -431,14 +437,18 @@ public class StandardGameDawnFragment extends Fragment {
     }
 
     public void createDeceiverWinPopup(){
+        StandardGameActivity sga=(StandardGameActivity)getActivity();
         dialogBuilder=new AlertDialog.Builder(getContext());
         final View contactPopupView=getLayoutInflater().inflate(R.layout.deceiverwinpopup,null);
 
         decRestart=contactPopupView.findViewById(R.id.decRestart);
         decMenu=contactPopupView.findViewById(R.id.decMenu);
         decDays=contactPopupView.findViewById(R.id.decDays);
+        decDays.setText(sga.dayCount+" days");
         decDawns=contactPopupView.findViewById(R.id.decDawns);
+        decDawns.setText(sga.dawnCount+" dawns");
         decNights=contactPopupView.findViewById(R.id.decNights);
+        decNights.setText(sga.nightCount+" nights");
 
         dialogBuilder.setView(contactPopupView);
         deceiverDialog=dialogBuilder.create();
@@ -460,14 +470,18 @@ public class StandardGameDawnFragment extends Fragment {
     }
 
     public void createVillageWinPopup(){
+        StandardGameActivity sga=(StandardGameActivity)getActivity();
         dialogBuilder=new AlertDialog.Builder(getContext());
         final View contactPopupView=getLayoutInflater().inflate(R.layout.villagewinpopup,null);
 
         vilRestart=contactPopupView.findViewById(R.id.vilRestart);
         vilMenu=contactPopupView.findViewById(R.id.vilMenu);
         vilDays=contactPopupView.findViewById(R.id.vilDays);
+        vilDays.setText(sga.dayCount+" days");
         vilDawns=contactPopupView.findViewById(R.id.vilDawns);
+        vilDawns.setText(sga.dawnCount+" dawns");
         vilNights=contactPopupView.findViewById(R.id.vilNights);
+        vilNights.setText(sga.nightCount+" nights");
 
         dialogBuilder.setView(contactPopupView);
         villageDialog=dialogBuilder.create();

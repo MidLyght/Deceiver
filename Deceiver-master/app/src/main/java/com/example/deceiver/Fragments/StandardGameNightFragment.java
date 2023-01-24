@@ -1,8 +1,11 @@
 package com.example.deceiver.Fragments;
 
 import static com.example.deceiver.Enums.StandardRole.Deceiver;
+import static com.example.deceiver.Enums.StandardRole.Seer;
 import static com.example.deceiver.Enums.StandardRole.Traitor;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,8 +14,11 @@ import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.deceiver.Activities.MainPageActivity;
 import com.example.deceiver.Activities.StandardGameActivity;
 import com.example.deceiver.DataClasses.StandardCharacter;
 import com.example.deceiver.Enums.Phase;
@@ -32,7 +38,12 @@ public class StandardGameNightFragment extends Fragment {
     View objectStandardGameNightFragment;
     private StandardCharacter deceiver,traitor,farmer1,farmer2,witch,blacksmith,seer,guard;
     private ImageView c1,c2,c3,c4,c5,c6,c7,c8,c1dead,c2dead,c3dead,c4dead,c5dead,c6dead,c7dead,c8dead,c1role,c2role,c3role,c4role,c5role,c6role,c7role,c8role,nextPhase;
+    private TextView dayNum;
     private ArrayList<StandardCharacter> order;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog deceiverDialog,villageDialog;
+    private TextView decDays,decDawns,decNights,vilDays,vilDawns,vilNights;
+    private Button decRestart,decMenu,vilRestart,vilMenu;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -126,21 +137,24 @@ public class StandardGameNightFragment extends Fragment {
         c7role=objectStandardGameNightFragment.findViewById(R.id.imgGameNightChar7Role);
         c8role=objectStandardGameNightFragment.findViewById(R.id.imgGameNightChar8Role);
 
+        dayNum=objectStandardGameNightFragment.findViewById(R.id.txtGameNightDayNum);
+        dayNum.setText("Day "+sga.dayCount);
+
         nextPhase=objectStandardGameNightFragment.findViewById(R.id.imgGameNightNextPhase);
 
         nextPhase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sga.nightCount++;
-                if(deceiver.getWoundCounter()==1){
-                    deceiver.setWoundCounter(2);
-                    traitor.setWoundCounter(2);
-                }
                 if(deceiver.getWoundCounter()==2){
                     deceiver.setWoundCounter(0);
                     deceiver.setHeavilyWounded(false);
                     traitor.setWoundCounter(0);
                     traitor.setHeavilyWounded(false);
+                }
+                if(deceiver.getWoundCounter()==1){
+                    deceiver.setWoundCounter(2);
+                    traitor.setWoundCounter(2);
                 }
                 StandardGameNightLogFragment standardGameNightLogFragment=new StandardGameNightLogFragment();
                 FragmentManager manager=getFragmentManager();
@@ -149,6 +163,34 @@ public class StandardGameNightFragment extends Fragment {
                         .commit();
             }
         });
+
+        if(!sga.deceiver.isAlive()&&!sga.traitor.isAlive()){
+            createVillageWinPopup();
+        }
+
+        sga.deceiverCount=2;
+
+        if(!deceiver.isAlive()&&traitor.isAlive()||deceiver.isAlive()&&!traitor.isAlive())
+            sga.deceiverCount=1;
+
+        sga.villagerCount=0;
+
+        if(witch.isAlive())
+            sga.villagerCount++;
+        if(farmer1.isAlive())
+            sga.villagerCount++;
+        if(farmer2.isAlive())
+            sga.villagerCount++;
+        if(blacksmith.isAlive())
+            sga.villagerCount++;
+        if(seer.isAlive())
+            sga.villagerCount++;
+        if(guard.isAlive())
+            sga.villagerCount++;
+
+        if(sga.villagerCount<=sga.deceiverCount){
+            createDeceiverWinPopup();
+        }
 
         if(!order.get(0).isAlive())
             c1dead.setVisibility(View.VISIBLE);
@@ -177,7 +219,7 @@ public class StandardGameNightFragment extends Fragment {
             c1role.setImageResource(R.drawable.blacksmithicon);
         if(order.get(0).getRole()==StandardRole.Farmer)
             c1role.setImageResource(R.drawable.farmericon);
-        if(order.get(0).getRole()==StandardRole.Seer)
+        if(order.get(0).getRole()== Seer)
             c1role.setImageResource(R.drawable.seericon);
         if(order.get(0).getRole()==StandardRole.Guard)
             c1role.setImageResource(R.drawable.shieldicon);
@@ -192,7 +234,7 @@ public class StandardGameNightFragment extends Fragment {
             c2role.setImageResource(R.drawable.blacksmithicon);
         if(order.get(1).getRole()==StandardRole.Farmer)
             c2role.setImageResource(R.drawable.farmericon);
-        if(order.get(1).getRole()==StandardRole.Seer)
+        if(order.get(1).getRole()== Seer)
             c2role.setImageResource(R.drawable.seericon);
         if(order.get(1).getRole()==StandardRole.Guard)
             c2role.setImageResource(R.drawable.shieldicon);
@@ -207,7 +249,7 @@ public class StandardGameNightFragment extends Fragment {
             c3role.setImageResource(R.drawable.blacksmithicon);
         if(order.get(2).getRole()==StandardRole.Farmer)
             c3role.setImageResource(R.drawable.farmericon);
-        if(order.get(2).getRole()==StandardRole.Seer)
+        if(order.get(2).getRole()== Seer)
             c3role.setImageResource(R.drawable.seericon);
         if(order.get(2).getRole()==StandardRole.Guard)
             c3role.setImageResource(R.drawable.shieldicon);
@@ -222,7 +264,7 @@ public class StandardGameNightFragment extends Fragment {
             c4role.setImageResource(R.drawable.blacksmithicon);
         if(order.get(3).getRole()==StandardRole.Farmer)
             c4role.setImageResource(R.drawable.farmericon);
-        if(order.get(3).getRole()==StandardRole.Seer)
+        if(order.get(3).getRole()== Seer)
             c4role.setImageResource(R.drawable.seericon);
         if(order.get(3).getRole()==StandardRole.Guard)
             c4role.setImageResource(R.drawable.shieldicon);
@@ -237,7 +279,7 @@ public class StandardGameNightFragment extends Fragment {
             c5role.setImageResource(R.drawable.blacksmithicon);
         if(order.get(4).getRole()==StandardRole.Farmer)
             c5role.setImageResource(R.drawable.farmericon);
-        if(order.get(4).getRole()==StandardRole.Seer)
+        if(order.get(4).getRole()== Seer)
             c5role.setImageResource(R.drawable.seericon);
         if(order.get(4).getRole()==StandardRole.Guard)
             c5role.setImageResource(R.drawable.shieldicon);
@@ -252,7 +294,7 @@ public class StandardGameNightFragment extends Fragment {
             c6role.setImageResource(R.drawable.blacksmithicon);
         if(order.get(5).getRole()==StandardRole.Farmer)
             c6role.setImageResource(R.drawable.farmericon);
-        if(order.get(5).getRole()==StandardRole.Seer)
+        if(order.get(5).getRole()== Seer)
             c6role.setImageResource(R.drawable.seericon);
         if(order.get(5).getRole()==StandardRole.Guard)
             c6role.setImageResource(R.drawable.shieldicon);
@@ -267,7 +309,7 @@ public class StandardGameNightFragment extends Fragment {
             c7role.setImageResource(R.drawable.blacksmithicon);
         if(order.get(6).getRole()==StandardRole.Farmer)
             c7role.setImageResource(R.drawable.farmericon);
-        if(order.get(6).getRole()==StandardRole.Seer)
+        if(order.get(6).getRole()== Seer)
             c7role.setImageResource(R.drawable.seericon);
         if(order.get(6).getRole()==StandardRole.Guard)
             c7role.setImageResource(R.drawable.shieldicon);
@@ -282,7 +324,7 @@ public class StandardGameNightFragment extends Fragment {
             c8role.setImageResource(R.drawable.blacksmithicon);
         if(order.get(7).getRole()==StandardRole.Farmer)
             c8role.setImageResource(R.drawable.farmericon);
-        if(order.get(7).getRole()==StandardRole.Seer)
+        if(order.get(7).getRole()== Seer)
             c8role.setImageResource(R.drawable.seericon);
         if(order.get(7).getRole()==StandardRole.Guard)
             c8role.setImageResource(R.drawable.shieldicon);
@@ -303,6 +345,9 @@ public class StandardGameNightFragment extends Fragment {
             c7role.setVisibility(View.VISIBLE);
         if(order.get(7).isExposed())
             c8role.setVisibility(View.VISIBLE);
+
+        if(sga.dawnCount==3)
+            blacksmith.setHasSword(true);
     }
 
     private void nightPowers(){
@@ -336,6 +381,15 @@ public class StandardGameNightFragment extends Fragment {
             else{
                 order.get(val).setAlive(false);
                 sga.nightLog+="Character "+(val+1)+" died.\n";
+
+                if(order.get(val).getRole()==Seer){
+                    val= random.nextInt(8);
+                    while(!(order.get(val).isAlive())||(order.get(val)==seer)||(order.get(val).isExposed())){
+                        val=random.nextInt(8);
+                    }
+                    order.get(val).setExposed(true);
+                    sga.nightLog+="The seer has revealed the identity of character "+(val+1)+" before dying.\n";
+                }
             }
         }
 
@@ -367,5 +421,71 @@ public class StandardGameNightFragment extends Fragment {
         sga.guard=guard;
 
         sga.order=order;
+    }
+
+    public void createDeceiverWinPopup(){
+        StandardGameActivity sga=(StandardGameActivity)getActivity();
+        dialogBuilder=new AlertDialog.Builder(getContext());
+        final View contactPopupView=getLayoutInflater().inflate(R.layout.deceiverwinpopup,null);
+
+        decRestart=contactPopupView.findViewById(R.id.decRestart);
+        decMenu=contactPopupView.findViewById(R.id.decMenu);
+        decDays=contactPopupView.findViewById(R.id.decDays);
+        decDays.setText(sga.dayCount+" days");
+        decDawns=contactPopupView.findViewById(R.id.decDawns);
+        decDawns.setText(sga.dawnCount+" dawns");
+        decNights=contactPopupView.findViewById(R.id.decNights);
+        decNights.setText(sga.nightCount+" nights");
+
+        dialogBuilder.setView(contactPopupView);
+        deceiverDialog=dialogBuilder.create();
+        deceiverDialog.show();
+
+        decRestart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(),StandardGameActivity.class));
+            }
+        });
+
+        decMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), MainPageActivity.class));
+            }
+        });
+    }
+
+    public void createVillageWinPopup(){
+        StandardGameActivity sga=(StandardGameActivity)getActivity();
+        dialogBuilder=new AlertDialog.Builder(getContext());
+        final View contactPopupView=getLayoutInflater().inflate(R.layout.villagewinpopup,null);
+
+        vilRestart=contactPopupView.findViewById(R.id.vilRestart);
+        vilMenu=contactPopupView.findViewById(R.id.vilMenu);
+        vilDays=contactPopupView.findViewById(R.id.vilDays);
+        vilDays.setText(sga.dayCount+" days");
+        vilDawns=contactPopupView.findViewById(R.id.vilDawns);
+        vilDawns.setText(sga.dawnCount+" dawns");
+        vilNights=contactPopupView.findViewById(R.id.vilNights);
+        vilNights.setText(sga.nightCount+" nights");
+
+        dialogBuilder.setView(contactPopupView);
+        villageDialog=dialogBuilder.create();
+        villageDialog.show();
+
+        vilRestart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(),StandardGameActivity.class));
+            }
+        });
+
+        vilRestart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), MainPageActivity.class));
+            }
+        });
     }
 }

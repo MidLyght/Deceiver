@@ -1,5 +1,7 @@
 package com.example.deceiver.Fragments;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,8 +10,11 @@ import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.deceiver.Activities.MainPageActivity;
 import com.example.deceiver.Activities.StandardGameActivity;
 import com.example.deceiver.DataClasses.StandardCharacter;
 import com.example.deceiver.Enums.Phase;
@@ -28,7 +33,12 @@ public class StandardGameDayFragment extends Fragment {
     private View objectStandardGameDayFragment;
     public StandardGameActivity sga;
     private ImageView c1,c2,c3,c4,c5,c6,c7,c8,c1dead,c2dead,c3dead,c4dead,c5dead,c6dead,c7dead,c8dead,c1role,c2role,c3role,c4role,c5role,c6role,c7role,c8role,c1lynch,c2lynch,c3lynch,c4lynch,c5lynch,c6lynch,c7lynch,c8lynch,nextPhase;
+    private TextView dayNum;
     ArrayList<StandardCharacter> order;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog deceiverDialog,villageDialog;
+    private TextView decDays,decDawns,decNights,vilDays,vilDawns,vilNights;
+    private Button decRestart,decMenu,vilRestart,vilMenu;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -121,6 +131,9 @@ public class StandardGameDayFragment extends Fragment {
         c7lynch=objectStandardGameDayFragment.findViewById(R.id.imgGameDayChar7Lynch);
         c8lynch=objectStandardGameDayFragment.findViewById(R.id.imgGameDayChar8Lynch);
 
+        dayNum=objectStandardGameDayFragment.findViewById(R.id.txtGameDayDayNum);
+        dayNum.setText("Day "+sga.dayCount);
+
         nextPhase=objectStandardGameDayFragment.findViewById(R.id.imgGameDayNextPhase);
 
         nextPhase.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +171,9 @@ public class StandardGameDayFragment extends Fragment {
                     c8lynch.setVisibility(View.INVISIBLE);
                     order.get(7).setAlive(false);
                 }
+
+                sga.order=order;
+
                 sga.dayCount++;
                 StandardGameDawnFragment standardGameDawnFragment=new StandardGameDawnFragment();
                 FragmentManager manager=getFragmentManager();
@@ -166,6 +182,34 @@ public class StandardGameDayFragment extends Fragment {
                         .commit();
             }
         });
+
+        if(!sga.deceiver.isAlive()&&!sga.traitor.isAlive()){
+            createVillageWinPopup();
+        }
+
+        sga.deceiverCount=2;
+
+        if(!sga.deceiver.isAlive()&&sga.traitor.isAlive()||sga.deceiver.isAlive()&&!sga.traitor.isAlive())
+            sga.deceiverCount=1;
+
+        sga.villagerCount=0;
+
+        if(sga.witch.isAlive())
+            sga.villagerCount++;
+        if(sga.farmer1.isAlive())
+            sga.villagerCount++;
+        if(sga.farmer2.isAlive())
+            sga.villagerCount++;
+        if(sga.blacksmith.isAlive())
+            sga.villagerCount++;
+        if(sga.seer.isAlive())
+            sga.villagerCount++;
+        if(sga.guard.isAlive())
+            sga.villagerCount++;
+
+        if(sga.villagerCount<=sga.deceiverCount){
+            createDeceiverWinPopup();
+        }
 
         c1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -458,5 +502,71 @@ public class StandardGameDayFragment extends Fragment {
             c7role.setVisibility(View.VISIBLE);
         if(order.get(7).isExposed())
             c8role.setVisibility(View.VISIBLE);
+    }
+
+    public void createDeceiverWinPopup(){
+        StandardGameActivity sga=(StandardGameActivity)getActivity();
+        dialogBuilder=new AlertDialog.Builder(getContext());
+        final View contactPopupView=getLayoutInflater().inflate(R.layout.deceiverwinpopup,null);
+
+        decRestart=contactPopupView.findViewById(R.id.decRestart);
+        decMenu=contactPopupView.findViewById(R.id.decMenu);
+        decDays=contactPopupView.findViewById(R.id.decDays);
+        decDays.setText(sga.dayCount+" days");
+        decDawns=contactPopupView.findViewById(R.id.decDawns);
+        decDawns.setText(sga.dawnCount+" dawns");
+        decNights=contactPopupView.findViewById(R.id.decNights);
+        decNights.setText(sga.nightCount+" nights");
+
+        dialogBuilder.setView(contactPopupView);
+        deceiverDialog=dialogBuilder.create();
+        deceiverDialog.show();
+
+        decRestart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(),StandardGameActivity.class));
+            }
+        });
+
+        decMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), MainPageActivity.class));
+            }
+        });
+    }
+
+    public void createVillageWinPopup(){
+        StandardGameActivity sga=(StandardGameActivity)getActivity();
+        dialogBuilder=new AlertDialog.Builder(getContext());
+        final View contactPopupView=getLayoutInflater().inflate(R.layout.villagewinpopup,null);
+
+        vilRestart=contactPopupView.findViewById(R.id.vilRestart);
+        vilMenu=contactPopupView.findViewById(R.id.vilMenu);
+        vilDays=contactPopupView.findViewById(R.id.vilDays);
+        vilDays.setText(sga.dayCount+" days");
+        vilDawns=contactPopupView.findViewById(R.id.vilDawns);
+        vilDawns.setText(sga.dawnCount+" dawns");
+        vilNights=contactPopupView.findViewById(R.id.vilNights);
+        vilNights.setText(sga.nightCount+" nights");
+
+        dialogBuilder.setView(contactPopupView);
+        villageDialog=dialogBuilder.create();
+        villageDialog.show();
+
+        vilRestart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(),StandardGameActivity.class));
+            }
+        });
+
+        vilRestart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), MainPageActivity.class));
+            }
+        });
     }
 }
