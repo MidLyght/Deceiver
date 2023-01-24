@@ -119,13 +119,14 @@ public class StandardGameDawnFragment extends Fragment {
             sga.dawnLog+="The guard has chosen to protect character "+(val+1)+".\n";
         }
 
-        if(witch.isAlive()){
+        if(witch.isAlive()&&witch.isCanVivify()){
             Random random=new Random();
             int val=random.nextInt(8);
             while(order.get(val).isAlive()==false){
                 val=random.nextInt(8);
             }
             order.get(val).setVivified(true);
+            witch.setCanVivify(false);
         }
 
         if(seer.isAlive() && sga.dawnCount%3==0){

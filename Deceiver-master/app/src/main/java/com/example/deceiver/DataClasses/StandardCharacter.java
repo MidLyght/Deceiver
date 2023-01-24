@@ -14,6 +14,7 @@ public class StandardCharacter {
     private boolean isSilenced;
     private boolean isHexed;
     private boolean isVivified;
+    private boolean canVivify;
     private int woundCounter;
 
     public StandardCharacter(StandardRole role) {
@@ -30,6 +31,7 @@ public class StandardCharacter {
         this.isSilenced=false;
         this.isHexed=false;
         this.isVivified=false;
+        this.canVivify=true;
         this.woundCounter=0;
     }
 
@@ -44,6 +46,7 @@ public class StandardCharacter {
         this.isSilenced=false;
         this.isHexed=false;
         this.isVivified=false;
+        this.canVivify=true;
         this.woundCounter=0;
     }
 
@@ -131,5 +134,13 @@ public class StandardCharacter {
 
     public void setTeam(StandardTeam team) {
         this.team = team;
+    }
+
+    public boolean isCanVivify() {
+        return canVivify;
+    }
+
+    public void setCanVivify(boolean canVivify) {
+        this.canVivify = canVivify;
     }
 }

@@ -196,8 +196,8 @@ If the chosen player is attacked by a lethal attack at night, the guard dies in 
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Part of the village team. Can choose to hex a player at night, stopping them from waking up when it becomes daytime, denying their abilities used at daytime.
-Can choose to attempt to vivify a player at daytime, causing different effects to happen to them depending on their role at night time.
+                android:text="Part of the village team.
+                Can choose to attempt to vivify a player at dawn, causing different effects to happen to them depending on their role at night time.
 If the vivify ability is used on a player from the villager team, they are protected from fatal attacks at night time, and this ability is no longer usable for the remainder of the game (for protecting purposes, the witch can still attempt to vivify the spirit).
 If the vivify ability is used on a player from the deceiver team, nothing happens."
                 android:textColor="#919191"
@@ -233,12 +233,49 @@ If the vivify ability is used on a player from the deceiver team, nothing happen
                 android:id="@+id/textView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Part of the village team. If 3 rounds have elapsed and the seer is still alive, the role of a random player who is still alive is revealed."
+                android:text="Part of the village team. If 3 dawns have elapsed and the seer is still alive, the role of a random player who is still alive is revealed."
                 android:textColor="#919191"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/blacksmithicon"
+                app:tint="#BCBBBB"
+                android:layout_marginTop="80dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blacksmith"
+                android:textColor="#BCBBBB"
+                android:textSize="24dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Can forge a sword to defend themselves over the period of 2 days.
+After 2 days of the game have elapsed, the blacksmith receives a sword, allowing them to defend themselves from vicious attacks at night time.
+If the blacksmith is attacked during the night time, they can use their sword to heavily wound the attacker, causing this attack and the one after it to be dismissed.
+Once the blacksmith uses their sword for the first time, their role is announced publicly."
+                android:textColor="#919191"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
